@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rota Livre — Acessibilidade Urbana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Skip link para leitores de tela / navegação por teclado -->
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<div id="app" data-theme="claro">
+
+  <!-- ============ TOPO ============ -->
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M12 24 L18 14 L22 20 L28 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Rota Livre</span>
+    </div>
+
+    <div class="topbar-actions">
+      <button id="themeToggle" class="icon-btn" type="button" aria-pressed="false" aria-label="Alternar tema claro e escuro">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+        <span class="theme-label">Tema</span>
+      </button>
+      <button id="notifBtn" class="icon-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Abrir notificações">
+        <span aria-hidden="true">🔔</span>
+        <span class="notif-dot" id="notifDot" hidden></span>
+      </button>
+      <button id="logoutBtn" class="btn-ghost" type="button" hidden>Sair</button>
+    </div>
+  </header>
+
+  <!-- Painel de notificações -->
+  <aside id="notifPanel" class="notif-panel" hidden aria-label="Notificações de acessibilidade">
+    <div class="notif-panel-head">
+      <h2>Notificações</h2>
+      <button id="closeNotif" class="icon-btn small" aria-label="Fechar notificações">✕</button>
+    </div>
+    <ul id="notifList" class="notif-list"></ul>
+  </aside>
+
+  <main id="main" role="main">
+
+    <!-- ============ TELA: LOGIN ============ -->
+    <section id="view-login" class="view auth-view">
+      <div class="auth-card">
+        <p class="eyebrow">Entrar</p>
+        <h1>Bem-vinda(o) de volta</h1>
+        <p class="lede">Acesse seu painel de rotas e recursos de acessibilidade urbana.</p>
+
+        <form id="loginForm" novalidate>
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" id="loginEmail" name="email" autocomplete="email" required>
+          </label>
+          <label class="field">
+            <span>Senha</span>
+            <input type="password" id="loginPassword" name="password" autocomplete="current-password" required minlength="4">
+          </label>
+          <p class="field-error" id="loginError" role="alert" aria-live="polite"></p>
+          <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <p class="switch-line">Ainda não tem conta? <button type="button" class="link-btn" id="goRegister">Cadastre-se</button></p>
+        <p class="switch-line muted">Quer só ver a demonstração? <button type="button" class="link-btn" id="fillDemo">Usar conta de exemplo</button></p>
+      </div>
+    </section>
+
+    <!-- ============ TELA: CADASTRO ============ -->
+    <section id="view-register" class="view auth-view" hidden>
+      <div class="auth-card">
+        <p class="eyebrow">Cadastro</p>
+        <h1>Crie sua conta</h1>
+        <p class="lede">Conte pra gente seu tipo de deficiência para personalizarmos os recursos da cidade pra você.</p>
+
+        <form id="registerForm" novalidate>
+          <label class="field">
+            <span>Nome</span>
+            <input type="text" id="regName" name="name" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" id="regEmail" name="email" autocomplete="email" required>
+          </label>
+          <label class="field">
+            <span>Senha</span>
+            <input type="password" id="regPassword" name="password" autocomplete="new-password" required minlength="4">
+          </label>
+
+          <fieldset class="field">
+            <legend>Tipo de deficiência</legend>
+            <div class="radio-grid" id="disabilityGrid">
+              <label class="radio-card">
+                <input type="radio" name="disability" value="visual" required>
+                <span class="radio-card-inner">
+                  <span class="radio-icon" aria-hidden="true">👁️</span>
+                  Visual
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="disability" value="auditiva">
+                <span class="radio-card-inner">
+                  <span class="radio-icon" aria-hidden="true">👂</span>
+                  Auditiva
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="disability" value="fisico-motora">
+                <span class="radio-card-inner">
+                  <span class="radio-icon" aria-hidden="true">🦽</span>
+                  Físico-motora
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="disability" value="intelectual">
+                <span class="radio-card-inner">
+                  <span class="radio-icon" aria-hidden="true">🧩</span>
+                  Intelectual
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="disability" value="multipla">
+                <span class="radio-card-inner">
+                  <span class="radio-icon" aria-hidden="true">✳️</span>
+                  Múltipla
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <p class="field-error" id="registerError" role="alert" aria-live="polite"></p>
+          <button type="submit" class="btn-primary">Criar conta</button>
+        </form>
+
+        <p class="switch-line">Já tem conta? <button type="button" class="link-btn" id="goLogin">Entrar</button></p>
+      </div>
+    </section>
+
+    <!-- ============ TELA: PAINEL (DASHBOARD) ============ -->
+    <section id="view-dashboard" class="view" hidden>
+
+      <div class="dash-hero">
+        <div>
+          <p class="eyebrow" id="dashEyebrow">Seu painel</p>
+          <h1 id="dashGreeting">Olá</h1>
+          <p class="lede" id="dashSubtitle">Recursos de mobilidade urbana selecionados para você.</p>
+        </div>
+        <div class="dash-badge" id="dashBadge" aria-hidden="true"></div>
+      </div>
+
+      <!-- Skeleton de carregamento assíncrono -->
+      <div id="dashSkeleton" class="skeleton-grid" aria-hidden="true">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+      <div id="dashContent" hidden>
+        <h2 class="section-title">Recursos recomendados</h2>
+        <ul class="resource-grid" id="resourceGrid"></ul>
+
+        <h2 class="section-title">Rotas e equipamentos urbanos acessíveis</h2>
+        <div class="route-list" id="routeList"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Rota Livre · Projeto acadêmico de acessibilidade urbana · Kanban</p>
+  </footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

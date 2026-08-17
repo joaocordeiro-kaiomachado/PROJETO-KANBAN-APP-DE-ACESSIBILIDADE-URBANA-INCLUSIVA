@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Rota Livre — Testes</title>
+<style>
+  body{ font-family: system-ui, sans-serif; max-width:640px; margin:2rem auto; padding:0 1rem; }
+  h1{ font-size:1.3rem; }
+  #out{ white-space:pre-wrap; background:#12211C; color:#EAF2ED; padding:1rem; border-radius:10px; font-size:.85rem; }
+  /* elementos mínimos para o app.js não quebrar ao ser importado nesta página */
+  #app{ display:none; }
+</style>
+</head>
+<body>
+  <h1>Rota Livre — testes dos componentes principais</h1>
+  <p>Abra o console do navegador (F12) para ver o resultado, ou veja abaixo.</p>
+  <pre id="out">Executando...</pre>
+
+  <!-- elementos mínimos exigidos pelos listeners do app.js -->
+  <div id="app" data-theme="claro">
+    <button id="themeToggle"></button>
+    <button id="notifBtn"></button>
+    <button id="closeNotif"></button>
+    <div id="notifPanel" hidden></div>
+    <ul id="notifList"></ul>
+    <span id="notifDot" hidden></span>
+    <button id="logoutBtn" hidden></button>
+    <button id="goRegister"></button>
+    <button id="goLogin"></button>
+    <button id="fillDemo"></button>
+    <form id="loginForm"></form>
+    <input id="loginEmail"><input id="loginPassword"><p id="loginError"></p>
+    <form id="registerForm"></form>
+    <input id="regName"><input id="regEmail"><input id="regPassword"><p id="registerError"></p>
+  </div>
+
+  <script type="module">
+    const logs = [];
+    const originalLog = console.log;
+    console.log = (...args) => { logs.push(args.join(" ")); originalLog(...args); };
+
+    import("./tests.js").then(() => {
+      document.getElementById("out").textContent = logs.join("\n");
+    });
+  </script>
+</body>
+</html>
